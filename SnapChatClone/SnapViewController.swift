@@ -20,6 +20,7 @@ class SnapViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         super.viewDidLoad()
         imagePicker = UIImagePickerController()
         imagePicker?.delegate = self
+        messageField.text = "testing"
         
         
     
@@ -28,7 +29,7 @@ class SnapViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     @IBAction func nextAction(_ sender: Any) {
         
-        messageField.text = "testing"
+//        messageField.text = "testing"
         imageAdded = true
         guard let message = messageField.text else {return}
         if imageAdded && message != ""{
@@ -46,10 +47,23 @@ class SnapViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
                 self.presentAlert(alert: error.localizedDescription)
                 
-                
+                guard (metaData?.storageReference?.downloadURL(completion: { (url, error) in
+                    guard let error = error else {return}
+                    print(error.localizedDescription)
+                    
+                    self.performSegue(withIdentifier: "showFriends", sender: url?.absoluteString )
+                })) != nil else {return}
+//                (completion: { (url, error) in
+//                    guard let error = error else {return}
+//                    let downLoadURL = url?.absoluteString
+//
+//                self.performSegue(withIdentifier: "showFriends", sender: String(downloadURL))
     
             
-        }
+            }
+            //            guard let downLoadURL = U
+            
+            
             //segue to next view controller
         } else {
             let alertVC = UIAlertController(title: "Error", message: "Please add message or image to continue", preferredStyle: .alert)
@@ -62,6 +76,11 @@ class SnapViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
         
 }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let downloadURL = sender as? String else{return}
+        guard let selectVC = segue.destination as? FriendsListTableTableViewController else {return}
+        selectVC.download = downloadURL
+    }
     
     func presentAlert(alert: String) {
         //        let alertController =

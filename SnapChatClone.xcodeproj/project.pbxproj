@@ -13,6 +13,7 @@
 		CE74386D22C3DCF7009C39EC /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE74386C22C3DCF7009C39EC /* RegisterViewController.swift */; };
 		CEAE0CF222CD39CB00C7C3CE /* SnapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE0CF122CD39CB00C7C3CE /* SnapViewController.swift */; };
 		CEAE0CF422CD3BAF00C7C3CE /* pictures.png in Resources */ = {isa = PBXBuildFile; fileRef = CEAE0CF322CD3BAF00C7C3CE /* pictures.png */; };
+		CEAE0CF622CD5A7200C7C3CE /* FriendsListTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE0CF522CD5A7200C7C3CE /* FriendsListTableTableViewController.swift */; };
 		CEC8341F22C2730E0017683B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC8341E22C2730E0017683B /* AppDelegate.swift */; };
 		CEC8342122C2730E0017683B /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC8342022C2730E0017683B /* LogInViewController.swift */; };
 		CEC8342422C2730E0017683B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEC8342222C2730E0017683B /* Main.storyboard */; };
@@ -54,6 +55,7 @@
 		CE74386C22C3DCF7009C39EC /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		CEAE0CF122CD39CB00C7C3CE /* SnapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapViewController.swift; sourceTree = "<group>"; };
 		CEAE0CF322CD3BAF00C7C3CE /* pictures.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pictures.png; sourceTree = "<group>"; };
+		CEAE0CF522CD5A7200C7C3CE /* FriendsListTableTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListTableTableViewController.swift; sourceTree = "<group>"; };
 		CEC8341B22C2730E0017683B /* SnapChatClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnapChatClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEC8341E22C2730E0017683B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEC8342022C2730E0017683B /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				CE74386C22C3DCF7009C39EC /* RegisterViewController.swift */,
 				CE08CE2322C3FBEC00DF6941 /* SnapsTableViewController.swift */,
 				CEAE0CF122CD39CB00C7C3CE /* SnapViewController.swift */,
+				CEAE0CF522CD5A7200C7C3CE /* FriendsListTableTableViewController.swift */,
 				CEC8342222C2730E0017683B /* Main.storyboard */,
 				CEAE0CF322CD3BAF00C7C3CE /* pictures.png */,
 				CEC8342822C273110017683B /* Assets.xcassets */,
@@ -402,6 +405,7 @@
 				CEAE0CF222CD39CB00C7C3CE /* SnapViewController.swift in Sources */,
 				CE08CE2422C3FBEC00DF6941 /* SnapsTableViewController.swift in Sources */,
 				CEC8342722C2730E0017683B /* SnapChatClone.xcdatamodeld in Sources */,
+				CEAE0CF622CD5A7200C7C3CE /* FriendsListTableTableViewController.swift in Sources */,
 				CEC8342122C2730E0017683B /* LogInViewController.swift in Sources */,
 				CEC8341F22C2730E0017683B /* AppDelegate.swift in Sources */,
 				CE74386D22C3DCF7009C39EC /* RegisterViewController.swift in Sources */,

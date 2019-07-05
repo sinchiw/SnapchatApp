@@ -8,8 +8,8 @@
 
 import UIKit
 import FirebaseStorage
-import Firebase
-
+import FirebaseDatabase
+import FirebaseAuth
 class SnapViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var messageField: UITextField!
@@ -28,7 +28,7 @@ class SnapViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         // Do any additional setup after loading the view.
     }
     @IBAction func nextAction(_ sender: Any) {
-        
+        var dowloardURL : [String]
 //        messageField.text = "testing"
         imageAdded = true
         guard let message = messageField.text else {return}
@@ -39,29 +39,98 @@ class SnapViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             
             //turn image into data
             guard let image = imageView.image else {return}
+//            var newMetaData = StorageMetadata()
+//            newMetaData.contentType = "image"
             
             guard let imageData = image.jpegData(compressionQuality: 0.1) else {return}
+//            imageFolder.child("\(NSUUID().uuidString).jpg").putData(imageData, metadata: nil) {
+            
             //we can use imageFolder.child("image.jpeg") but we want differnt name for all the image
-            imageFolder.child("\(NSUUID().uuidString).jpg").putData(imageData, metadata: nil) { (metaData, error) in
-                guard let error = error else {return}
-
-                self.presentAlert(alert: error.localizedDescription)
+            let imageRef = imageFolder.child("\(NSUUID().uuidString).jpg")
+            
+            imageRef.putData(imageData, metadata: nil) { (metaData, error) in
+                imageRef.downloadURL(completion: { (url, error) in
+                    guard let urldownload = url?.absoluteString else {return}
+                    self.performSegue(withIdentifier: "showFriends", sender: urldownload)
+                    print(urldownload)
+                })
+//                if let error = error{
+//                    print(error.localizedDescription)
+//                } else{
+//                    var url123 = ""
+//                    metaData?.storageReference?.downloadURL{ (url, error) in
+//                        guard let url22 = url?.absoluteString else{return}
+//                        url123.append(contentsOf: url22)
+//                        print(url22)
                 
-                guard (metaData?.storageReference?.downloadURL(completion: { (url, error) in
-                    guard let error = error else {return}
-                    print(error.localizedDescription)
+                
+                //so it does print metadata
+            
                     
-                    self.performSegue(withIdentifier: "showFriends", sender: url?.absoluteString )
-                })) != nil else {return}
+//                    print(ur)
+//                    let newMetaData = metaData
+//                    let downloadURL = metaData?.storageReference?.downloadURL
+//                    let url =
+//                   metaData?.storageReference?.downloadURL(completion: { (url, error) in
+//                        if let error = error {
+//                            print(error.localizedDescription)
+//                        } else {
+//                    //lse {
+////                           dowloardURL = url?.absoluteString
+////                            self.performSegue(withIdentifier: "showFriends", sender: url?.absoluteString)
+////                        }
+//                    guard let url1 = url?.absoluteString else {return}
+//                            print(url1)
+//                            dowloardURL?.append(url1)
+////                    self.performSegue(withIdentifier: "showFriends", sender: url?.absoluteString)
+////                    print(downloadURL)
+////                    let user = Auth.auth().currentUser
+////                    let imageDBRef = Database.database().reference().child("images").child(imageID)
+//                    let user = Auth.auth().currentUser
+//                    Database.database().reference().child("user").child(user!.uid).child("downloadURL").setValue(url1)
+//
+////                    //
+////                    imageDBRef.setValue(["download_url": downloadURL.absoluteString, "owner":  user?.uid])
+////
+////                    print(url1)
+////                        self.prepare(for: FriendsListTableTableViewController, sender: dowloardURL)
+//                    }
+//                    })
+                    
+//                    self.performSegue(withIdentifier: "showFriends", sender: dowloardURL)
+//                    {
+////                        downloadURL
+//                        self.performSegue(withIdentifier: "showFriends", sender: dowloardURL)
+//                    }
+                    
+//                    if let donwloadURL = metaData?.storageReference?.downloadURL
+                    
+                  
+//                self.presentAlert(alert: error.localizedDescription)
+                
+                
 //                (completion: { (url, error) in
 //                    guard let error = error else {return}
 //                    let downLoadURL = url?.absoluteString
-//
-//                self.performSegue(withIdentifier: "showFriends", sender: String(downloadURL))
-    
-            
+print("success")
+                
+//                }
+                
+//                metaData?.storageReference?.downloadURL(completion: { (url, error) in
+//                    if error != nil{
+//                        print(error!.localizedDescription)
+//                    }
+//                    if url != nil {
+//                        guard let downloadURL2 = url?.absoluteString else {return}
+//                        print(downloadURL2)
+////                        print(String(url!))
+//                    }
+//                })
+//                print("first comma \(dowloardURL)")
+//            met
             }
             //            guard let downLoadURL = U
+//            print(dowloardURL)
             
             
             //segue to next view controller
@@ -77,9 +146,14 @@ class SnapViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
 }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let downloadURL = sender as? String else{return}
-        guard let selectVC = segue.destination as? FriendsListTableTableViewController else {return}
-        selectVC.download = downloadURL
+       
+        if let downloadURL = sender as? String{
+            if let selectVC = segue.destination as? FriendsListTableTableViewController{
+                selectVC.download = downloadURL
+            }
+        }
+//         guard let downloadURL = sender as? String else{return}
+        
     }
     
     func presentAlert(alert: String) {

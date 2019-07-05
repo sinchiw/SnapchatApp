@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
 
 
 class RegisterViewController: UIViewController {
@@ -30,7 +31,10 @@ self.navigationController?.isNavigationBarHidden = false
             {
                 print(error.localizedDescription)
             }else {
+                if let user = user{ Database.database().reference().child("user").child(user.user.uid).child("email").setValue(user.user.email)
+                    
                     print("Sign up was succesfull")
+                }
                 }
             }
         }

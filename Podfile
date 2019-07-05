@@ -11,6 +11,7 @@ target 'SnapChatClone' do
   pod 'Firebase'
   pod 'Firebase/Auth'
   pod 'Firebase/Storage'
+  pod 'Firebase/Database'
   target 'SnapChatCloneTests' do
     inherit! :search_paths
     # Pods for testing

@@ -96,6 +96,10 @@ print("success")
         if let downloadURL = sender as? String{
             if let selectVC = segue.destination as? FriendsListTableTableViewController{
                 selectVC.download = downloadURL
+                selectVC.snapDescriptions = messageField.text!
+                
+                
+
             }
         }
 //         guard let downloadURL = sender as? String else{return}

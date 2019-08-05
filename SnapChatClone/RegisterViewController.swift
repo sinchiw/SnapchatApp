@@ -32,12 +32,23 @@ self.navigationController?.isNavigationBarHidden = false
                 print(error.localizedDescription)
             }else {
                 if let user = user{ Database.database().reference().child("users").child(user.user.uid).child("email").setValue(user.user.email)
-                    
+                    self.presentAlert(alert: "Sign up was a succesfull, please go back to home page")
                     print("Sign up was succesfull")
                 }
                 }
             }
         }
+    
+    
+    func presentAlert(alert: String) {
+        //        let alertController =
+        let alertVC = UIAlertController(title: "Success", message: alert, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "Ok", style: .default) { (action) in
+            alertVC.dismiss(animated: true, completion:nil)
+        }
+        alertVC.addAction(alertAction)
+        present(alertVC, animated: true, completion: nil)
+    }
         
         
     

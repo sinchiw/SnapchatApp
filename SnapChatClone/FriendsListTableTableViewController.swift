@@ -24,7 +24,7 @@ class User {
 
 
 class FriendsListTableTableViewController: UITableViewController {
-
+    var snapDescriptions = ""
     var download = ""
     var users : [User] = []
     
@@ -32,7 +32,7 @@ class FriendsListTableTableViewController: UITableViewController {
         super.viewDidLoad()
         self.tableView.reloadData()
 
-//        database()
+        database()
       
         
       
@@ -60,9 +60,20 @@ class FriendsListTableTableViewController: UITableViewController {
     }
     // MARK: - Table view data source
     
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        <#code#>
-//    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let user = users[indexPath.row]
+        guard let fromEmail = Auth.auth().currentUser?.email else {return}
+        let snap = ["from":fromEmail, "description":snapDescriptions, "imageURL": download]
+        Database.database().reference().child("users").child(user.uid).child("snapChat").childByAutoId().setValue(snap)
+        
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        transition.type = CATransitionType.fade
+        transition.subtype = CATransitionSubtype.fromRight
+        self.view.window!.layer.add(transition, forKey: nil)
+        navigationController?.popViewController(animated: false)
+    }
 
 //    override func numberOfSections(in tableView: UITableView) -> Int {
 //        // #warning Incomplete implementation, return the number of sections

@@ -28,10 +28,10 @@ self.navigationController?.isNavigationBarHidden = false
     @IBAction func signUpAction(_ sender: Any) {
         Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
             if let error = error
-            {
+            { 
                 print(error.localizedDescription)
             }else {
-                if let user = user{ Database.database().reference().child("user").child(user.user.uid).child("email").setValue(user.user.email)
+                if let user = user{ Database.database().reference().child("users").child(user.user.uid).child("email").setValue(user.user.email)
                     
                     print("Sign up was succesfull")
                 }

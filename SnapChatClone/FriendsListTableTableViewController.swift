@@ -7,42 +7,88 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
+
+class User {
+    var email : String
+    var uid : String
+    
+    init (email: String, uid: String){
+        self.email = email
+        self.uid = uid
+    }
+    
+}
+
+
 
 class FriendsListTableTableViewController: UITableViewController {
 
     var download = ""
+    var users : [User] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-print(download)
+        self.tableView.reloadData()
+
+//        database()
+      
+        
+      
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
     }
-
+    
+    func database(){
+        Database.database().reference().child("users").observe(.childAdded) { (snapshot) in
+    
+            guard let userDictionary = snapshot.value as? NSDictionary else {return}
+            guard let email = userDictionary["email"] as? String else {return}
+            let user = User(email: email, uid: snapshot.key)
+            
+            print(email)
+            self.users.append(user)
+            self.tableView.reloadData()
+            
+        }
+        
+    }
     // MARK: - Table view data source
+    
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        <#code#>
+//    }
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
+//    override func numberOfSections(in tableView: UITableView) -> Int {
+//        // #warning Incomplete implementation, return the number of sections
+//        return 0
+//    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        print(users.count)
+        return users.count
     }
 
-    /*
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = UITableViewCell()
+        let user = users[indexPath.row].email
+        cell.textLabel?.text = user
+        
+        
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
         // Configure the cell...
 
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -90,3 +136,5 @@ print(download)
     */
 
 }
+
+
